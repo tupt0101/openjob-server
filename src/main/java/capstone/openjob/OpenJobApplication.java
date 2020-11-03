@@ -13,14 +13,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAuthorizationServer
 @EnableResourceServer
 @EnableSwagger2
-public class OpenjobApplication {
+public class OpenJobApplication {
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(OpenjobApplication.class, args);
+		SpringApplication.run(OpenJobApplication.class, args);
 	}
 //
 //	@Bean
