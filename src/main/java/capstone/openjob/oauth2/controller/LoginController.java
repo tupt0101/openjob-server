@@ -20,7 +20,7 @@ public class LoginController {
     HttpHeaders httpHeaders = new HttpHeaders();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    @ResponseBody
+    @ResponseBody
 //    @CrossOrigin(origins = "http://localhost:8080")
     ResponseEntity<String>  login(@RequestParam("username") String email, @RequestParam("password") String password) throws Exception {
 //        String url = "http://localhost:8080/oauth/token";
