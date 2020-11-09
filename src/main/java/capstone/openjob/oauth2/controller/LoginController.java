@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @RestController
-//@CrossOrigin(value = "http://localhost:9527")
+@CrossOrigin(value = "http://localhost:4200")
 public class LoginController {
 
     HttpHeaders httpHeaders = new HttpHeaders();
