@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "job", schema = "dbo", catalog = "OPENJOB")
+@Table(name = "job", schema = "public", catalog = "dden3j8ulj98p8")
 public class JobEntity {
     private Integer id;
     private String title;

@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "job_application", schema = "dbo", catalog = "OPENJOB")
+@Table(name = "job_application", schema = "public", catalog = "dden3j8ulj98p8")
 public class JobApplicationEntity {
     private Integer id;
     private Integer jobId;

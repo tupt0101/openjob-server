@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "package", schema = "dbo", catalog = "OPENJOB")
+@Table(name = "package", schema = "public", catalog = "dden3j8ulj98p8")
 public class PackageEntity {
     private Integer id;
     private String name;

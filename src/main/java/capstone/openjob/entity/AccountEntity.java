@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "account", schema = "dbo", catalog = "OPENJOB")
+@Table(name = "account", schema = "public", catalog = "dden3j8ulj98p8")
 public class AccountEntity {
     private Integer id;
     private String email;
