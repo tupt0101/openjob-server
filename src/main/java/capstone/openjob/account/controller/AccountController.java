@@ -103,4 +103,10 @@ public class AccountController {
     ResponseEntity<AccountEntity> getAccountById(@PathVariable("id") int id) {
         return new ResponseEntity<AccountEntity>(accountService.findAccountEntityById(id), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/account/{email}", method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<AccountEntity> getAccountByMail(@PathVariable("email") String email) {
+        return new ResponseEntity<AccountEntity>(accountService.findAccountByEmail(email), HttpStatus.OK);
+    }
 }
