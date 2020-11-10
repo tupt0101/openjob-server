@@ -105,9 +105,9 @@ public class AccountController {
         return new ResponseEntity<AccountEntity>(accountService.findAccountEntityById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/account-by-email", method = RequestMethod.GET)
+    @RequestMapping(value = "/account-by-email/{email}", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<AccountEntity> getAccountByMail(@Param("email") String email) {
+    ResponseEntity<AccountEntity> getAccountByMail(@PathVariable("email") String email) {
         return new ResponseEntity<AccountEntity>(accountService.findAccountByEmail(email), HttpStatus.OK);
     }
 }
