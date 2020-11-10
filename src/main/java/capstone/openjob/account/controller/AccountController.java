@@ -3,6 +3,7 @@ package capstone.openjob.account.controller;
 import capstone.openjob.account.service.IAccountService;
 import capstone.openjob.entity.AccountEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -104,9 +105,9 @@ public class AccountController {
         return new ResponseEntity<AccountEntity>(accountService.findAccountEntityById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/account/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/account-by-email", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<AccountEntity> getAccountByMail(@PathVariable("email") String email) {
+    ResponseEntity<AccountEntity> getAccountByMail(@Param("email") String email) {
         return new ResponseEntity<AccountEntity>(accountService.findAccountByEmail(email), HttpStatus.OK);
     }
 }
