@@ -22,7 +22,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
 //    @CrossOrigin(origins = "http://localhost:8080")
-    ResponseEntity<String>  login(@RequestParam("username") String email, @RequestParam("password") String password) throws Exception {
+    ResponseEntity<JSONObject>  login(@RequestParam("username") String email, @RequestParam("password") String password) throws Exception {
 //        String url = "http://localhost:8080/oauth/token";
         String url = "https://openjob-server.herokuapp.com/oauth/token";
         URL obj = new URL(url);
@@ -51,6 +51,6 @@ public class LoginController {
 
         JSONObject jsonObject = new JSONObject(response.toString());
         String access_token = jsonObject.getString("access_token");
-        return new ResponseEntity<>(access_token, HttpStatus.OK);
+        return new ResponseEntity<>(jsonObject, HttpStatus.OK);
     }
 }
