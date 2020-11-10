@@ -14,15 +14,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @RestController
-//@CrossOrigin(value = "http://localhost:9527")
+@CrossOrigin(value = "http://localhost:4200")
 public class LoginController {
 
     HttpHeaders httpHeaders = new HttpHeaders();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    @ResponseBody
+    @ResponseBody
 //    @CrossOrigin(origins = "http://localhost:8080")
-    ResponseEntity<String>  login(@RequestParam("username") String email, @RequestParam("password") String password) throws Exception {
+    ResponseEntity<TokenDto>  login(@RequestParam("username") String email, @RequestParam("password") String password) throws Exception {
 //        String url = "http://localhost:8080/oauth/token";
         String url = "https://openjob-server.herokuapp.com/oauth/token";
         URL obj = new URL(url);
@@ -50,7 +50,8 @@ public class LoginController {
         in.close();
 
         JSONObject jsonObject = new JSONObject(response.toString());
-        String access_token = jsonObject.getString("access_token");
+        TokenDto access_token = new TokenDto();
+        access_token.setToken(jsonObject.getString("access_token"));
         return new ResponseEntity<>(access_token, HttpStatus.OK);
     }
 }
