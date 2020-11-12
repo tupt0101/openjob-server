@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/v1/job-management")
+@CrossOrigin(value = "http://localhost:4200")
 public class JobController {
     @Autowired
     private IJobService jobService;
