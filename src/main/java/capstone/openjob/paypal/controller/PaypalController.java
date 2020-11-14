@@ -19,6 +19,7 @@ import com.paypal.base.rest.PayPalRESTException;
 
 @Controller
 @RequestMapping(path = "/v1/paypal")
+@CrossOrigin(value = "http://localhost:4200")
 public class PaypalController {
 
     public static final String URL_PAYPAL_SUCCESS = "pay/success";

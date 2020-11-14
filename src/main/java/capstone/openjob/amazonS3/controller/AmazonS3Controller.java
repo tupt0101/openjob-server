@@ -7,8 +7,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/v1/s3-management/")
+@CrossOrigin(value = "http://localhost:4200")
 public class AmazonS3Controller {
     private AmazonClient amazonClient;
+    private class AmazonResponse{
+        private String url;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+    }
 
     @Autowired
     AmazonS3Controller(AmazonClient amazonClient) {
@@ -16,8 +28,10 @@ public class AmazonS3Controller {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-        return this.amazonClient.uploadFile(file);
+    public AmazonResponse uploadFile(@RequestPart(value = "file") MultipartFile file) {
+        AmazonResponse amazonResponse = new AmazonResponse();
+        amazonResponse.setUrl(this.amazonClient.uploadFile(file));
+        return amazonResponse;
     }
 
     @DeleteMapping("/deleteFile")

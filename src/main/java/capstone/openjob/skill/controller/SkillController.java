@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/v1/skill-management")
+@CrossOrigin(value = "http://localhost:4200")
 public class SkillController {
 
     @Autowired
