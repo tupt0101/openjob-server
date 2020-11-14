@@ -1,6 +1,7 @@
 package capstone.openjob.company.controller;
 
 
+import capstone.openjob.amazonS3.client.AmazonClient;
 import capstone.openjob.company.service.ICompanyService;
 import capstone.openjob.entity.CompanyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,30 +20,33 @@ public class CompanyController {
     @Autowired
     private ICompanyService companyService;
 
+    private AmazonClient amazonClient;
+
     HttpHeaders httpHeaders = new HttpHeaders();
 
     @RequestMapping(value = "/company", method = RequestMethod.POST)
     @ResponseBody
-    ResponseEntity<CompanyEntity> createCompany(@RequestBody CompanyEntity companyEntity) {
-        if(companyEntity.getName() == null) {
+    ResponseEntity<CompanyEntity> createCompany(@RequestBody CompanyEntity companyEntity, @RequestPart(value = "file") MultipartFile file) {
+        companyEntity.setAvatar(amazonClient.uploadFile(file));
+        if (companyEntity.getName() == null) {
             httpHeaders.set("error", "Name is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getLocation() == null || companyEntity.getLocation().isEmpty()) {
+        } else if (companyEntity.getLocation() == null || companyEntity.getLocation().isEmpty()) {
             httpHeaders.set("error", "Location is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getTaxCode() == null || companyEntity.getTaxCode().isEmpty()) {
+        } else if (companyEntity.getTaxCode() == null || companyEntity.getTaxCode().isEmpty()) {
             httpHeaders.set("error", "Tax Code is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getEmail() == null || companyEntity.getEmail().isEmpty()) {
+        } else if (companyEntity.getEmail() == null || companyEntity.getEmail().isEmpty()) {
             httpHeaders.set("error", "Email is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getPhoneNo() == null || companyEntity.getPhoneNo().isEmpty()) {
+        } else if (companyEntity.getPhoneNo() == null || companyEntity.getPhoneNo().isEmpty()) {
             httpHeaders.set("error", "Phone Number is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getDescription() == null || companyEntity.getDescription().isEmpty()) {
+        } else if (companyEntity.getDescription() == null || companyEntity.getDescription().isEmpty()) {
             httpHeaders.set("error", "Description is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getAvatar() == null || companyEntity.getAvatar().isEmpty()) {
+        } else if (companyEntity.getAvatar() == null || companyEntity.getAvatar().isEmpty()) {
             httpHeaders.set("error", "Avatar is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
@@ -51,25 +56,25 @@ public class CompanyController {
     @RequestMapping(value = "/company", method = RequestMethod.PUT)
     @ResponseBody
     ResponseEntity<CompanyEntity> updateCompany(@RequestBody CompanyEntity companyEntity) {
-        if(companyEntity.getName() == null) {
+        if (companyEntity.getName() == null) {
             httpHeaders.set("error", "Name is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getLocation() == null || companyEntity.getLocation().isEmpty()) {
+        } else if (companyEntity.getLocation() == null || companyEntity.getLocation().isEmpty()) {
             httpHeaders.set("error", "Location is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getTaxCode() == null || companyEntity.getTaxCode().isEmpty()) {
+        } else if (companyEntity.getTaxCode() == null || companyEntity.getTaxCode().isEmpty()) {
             httpHeaders.set("error", "Tax Code is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getEmail() == null || companyEntity.getEmail().isEmpty()) {
+        } else if (companyEntity.getEmail() == null || companyEntity.getEmail().isEmpty()) {
             httpHeaders.set("error", "Email is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getPhoneNo() == null || companyEntity.getPhoneNo().isEmpty()) {
+        } else if (companyEntity.getPhoneNo() == null || companyEntity.getPhoneNo().isEmpty()) {
             httpHeaders.set("error", "Phone Number is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getDescription() == null || companyEntity.getDescription().isEmpty()) {
+        } else if (companyEntity.getDescription() == null || companyEntity.getDescription().isEmpty()) {
             httpHeaders.set("error", "Description is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getAvatar() == null || companyEntity.getAvatar().isEmpty()) {
+        } else if (companyEntity.getAvatar() == null || companyEntity.getAvatar().isEmpty()) {
             httpHeaders.set("error", "Avatar is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
