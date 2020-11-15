@@ -27,7 +27,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         ,"/swagger-resources/**","/configuration/**"
                         ,"/linkedin/**"
 //                        ,"/v1/account-mananagement/**"
-                        ,"/v1/paypal/pay/**","/pay/**").permitAll()
+                        ,"/v1/paypal/pay/**","/pay/**"
+                        ,"/v1/**").permitAll()
                 .anyRequest().authenticated()
                 .and().cors();
 //                .and().csrf();
