@@ -152,10 +152,10 @@ public class JobController {
             httpHeaders.set("error", "Job type is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
-        if (job.getCategoryId() == null ) {
-            httpHeaders.set("error", "Category is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        }
+//        if (job.getCategoryId() == null ) {
+//            httpHeaders.set("error", "Category is empty");
+//            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
+//        }
         if (job.getLocation() == null || job.getLocation().isEmpty()) {
             httpHeaders.set("error", "Location is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
