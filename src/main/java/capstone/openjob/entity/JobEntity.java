@@ -26,9 +26,8 @@ public class JobEntity {
     private String status;
     private Integer vacancies;
     private String jobType;
-    private Integer categoryId;
     @ApiModelProperty(hidden = true)
-    private CategoryEntity categoryByCategoryId;
+//    private CategoryEntity categoryByCategoryId;
     private String skill;
     private String location;
     private Integer accountId;
@@ -36,6 +35,7 @@ public class JobEntity {
     private AccountEntity accountByAccountId;
     @ApiModelProperty(hidden = true)
     private Collection<JobApplicationEntity> jobApplicationByIds;
+    private String category;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -178,15 +178,7 @@ public class JobEntity {
         this.location = location;
     }
 
-    @Basic
-    @Column(name = "category_id")
-    public Integer getCategoryId() {
-        return categoryId;
-    }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
 
     @Basic
     @Column(name = "account_id")
@@ -204,7 +196,6 @@ public class JobEntity {
         return companyByCompanyId;
     }
 
-
     public void setCompanyByCompanyId(CompanyEntity companyByCompanyId) {
         this.companyByCompanyId = companyByCompanyId;
     }
@@ -219,15 +210,15 @@ public class JobEntity {
         this.companyId = companyId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id", referencedColumnName = "id", insertable=false, updatable=false)
-    public CategoryEntity getCategoryByCategoryId() {
-        return categoryByCategoryId;
-    }
-
-    public void setCategoryByCategoryId(CategoryEntity categoryId) {
-        this.categoryByCategoryId = categoryId;
-    }
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "category_id", referencedColumnName = "id", insertable=false, updatable=false)
+//    public CategoryEntity getCategoryByCategoryId() {
+//        return categoryByCategoryId;
+//    }
+//
+//    public void setCategoryByCategoryId(CategoryEntity categoryId) {
+//        this.categoryByCategoryId = categoryId;
+//    }
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "id", insertable=false, updatable=false)
@@ -254,7 +245,7 @@ public class JobEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobEntity jobEntity = (JobEntity) o;
-        return id == jobEntity.id &&
+        return Objects.equals(id, jobEntity.id) &&
                 Objects.equals(title, jobEntity.title) &&
                 Objects.equals(description, jobEntity.description) &&
                 Objects.equals(applyTo, jobEntity.applyTo) &&
@@ -267,14 +258,24 @@ public class JobEntity {
                 Objects.equals(status, jobEntity.status) &&
                 Objects.equals(vacancies, jobEntity.vacancies) &&
                 Objects.equals(jobType, jobEntity.jobType) &&
-                Objects.equals(categoryByCategoryId, jobEntity.categoryByCategoryId) &&
                 Objects.equals(skill, jobEntity.skill) &&
                 Objects.equals(location, jobEntity.location) &&
-                Objects.equals(accountByAccountId, jobEntity.accountByAccountId);
+                Objects.equals(accountId, jobEntity.accountId) &&
+                Objects.equals(category, jobEntity.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, applyTo, createDate, companyId, currency, salaryFrom, salaryHidden, salaryTo, status, vacancies, jobType, categoryByCategoryId, skill, location, accountByAccountId);
+        return Objects.hash(id, title, description, applyTo, createDate, companyId, currency, salaryFrom, salaryHidden, salaryTo, status, vacancies, jobType, skill, location, accountId, category);
+    }
+
+    @Basic
+    @Column(name = "category")
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
