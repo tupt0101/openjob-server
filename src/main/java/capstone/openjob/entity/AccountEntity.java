@@ -25,6 +25,7 @@ public class AccountEntity {
     @ApiModelProperty(hidden = true)
     private Collection<JobApplicationEntity> jobApplicationsById;
     private String fullname;
+    private String address;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -150,12 +151,13 @@ public class AccountEntity {
                 Objects.equals(companyId, that.companyId) &&
                 Objects.equals(phoneNo, that.phoneNo) &&
                 Objects.equals(cv, that.cv) &&
-                Objects.equals(fullname, that.fullname);
+                Objects.equals(fullname, that.fullname) &&
+                Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, role, confirmation, companyId, phoneNo, cv, fullname);
+        return Objects.hash(id, email, password, role, confirmation, companyId, phoneNo, cv, fullname, address);
     }
 
     @Basic
@@ -166,5 +168,15 @@ public class AccountEntity {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    @Basic
+    @Column(name = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
