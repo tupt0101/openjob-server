@@ -10,6 +10,6 @@ public interface IJobService {
     List<JobEntity> getAllJob();
     JobEntity closeJob(int id);
     JobEntity getJobById(int id);
-    JobEntity getJobByAccountId(int id);
+    List<JobEntity> getJobByAccountId(int id);
     List<JobEntity> getOpenJob();
 }

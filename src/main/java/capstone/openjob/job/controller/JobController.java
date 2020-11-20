@@ -195,7 +195,7 @@ public class JobController {
 
     @RequestMapping(value = "/job-by-account-id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<JobEntity> getJobByAccountId(@PathVariable("id") int id) {
-        return new ResponseEntity<JobEntity>(jobService.getJobByAccountId(id), HttpStatus.OK);
+    ResponseEntity<List<JobEntity>> getJobByAccountId(@PathVariable("id") int id) {
+        return new ResponseEntity<List<JobEntity>>(jobService.getJobByAccountId(id), HttpStatus.OK);
     }
 }
