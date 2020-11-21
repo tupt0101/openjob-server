@@ -26,7 +26,7 @@ public class JobEntity {
     private String status;
     private Integer vacancies;
     private String jobType;
-    @ApiModelProperty(hidden = true)
+//    @ApiModelProperty(hidden = true)
 //    private CategoryEntity categoryByCategoryId;
     private String skill;
     private String location;

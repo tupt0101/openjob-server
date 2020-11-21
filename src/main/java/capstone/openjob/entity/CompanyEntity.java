@@ -18,10 +18,12 @@ public class CompanyEntity {
     private String phoneNo;
     private String description;
     private String avatar;
-    @ApiModelProperty(hidden = true)
-    private Collection<AccountEntity> accountsById;
+//    @ApiModelProperty(hidden = true)
+//    private Collection<AccountEntity> accountsById;
     @ApiModelProperty(hidden = true)
     private Collection<JobEntity> jobsById;
+    private Integer accountId;
+    private AccountEntity accountById;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -103,15 +105,25 @@ public class CompanyEntity {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+//
+//    @OneToMany(mappedBy = "companyByCompanyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonBackReference(value = "company-account")
+//    public Collection<AccountEntity> getAccountsById() {
+//        return accountsById;
+//    }
+//
+//    public void setAccountsById(Collection<AccountEntity> accountByIds) {
+//        this.accountsById = accountByIds;
+//    }
 
-    @OneToMany(mappedBy = "companyByCompanyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "company-account")
-    public Collection<AccountEntity> getAccountsById() {
-        return accountsById;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "id", insertable=false, updatable=false)
+    public AccountEntity getAccountById() {
+        return accountById;
     }
 
-    public void setAccountsById(Collection<AccountEntity> accountByIds) {
-        this.accountsById = accountByIds;
+    public void setAccountById(AccountEntity accountById) {
+        this.accountById = accountById;
     }
 
     @OneToMany(mappedBy = "companyByCompanyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -142,5 +154,15 @@ public class CompanyEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, location, taxCode, email, phoneNo, description, avatar);
+    }
+
+    @Basic
+    @Column(name = "account_id")
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 }

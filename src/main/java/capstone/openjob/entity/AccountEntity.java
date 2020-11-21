@@ -15,9 +15,9 @@ public class AccountEntity {
     private String password;
     private String role;
     private Boolean confirmation;
-    private Integer companyId;
-    @ApiModelProperty(hidden = true)
-    private CompanyEntity companyByCompanyId;
+//    private Integer companyId;
+//    @ApiModelProperty(hidden = true)
+//    private CompanyEntity companyByCompanyId;
     private String phoneNo;
     private String cv;
     @ApiModelProperty(hidden = true)
@@ -26,6 +26,8 @@ public class AccountEntity {
     private Collection<JobApplicationEntity> jobApplicationsById;
     private String fullname;
     private String address;
+    @ApiModelProperty(hidden = true)
+    private Collection<CompanyEntity> companiesById;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -78,25 +80,17 @@ public class AccountEntity {
         this.confirmation = confirmation;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id", insertable=false, updatable=false)
-    public CompanyEntity getCompanyByCompanyId() {
-        return companyByCompanyId;
-    }
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "company_id", referencedColumnName = "id", insertable=false, updatable=false)
+//    public CompanyEntity getCompanyByCompanyId() {
+//        return companyByCompanyId;
+//    }
+//
+//    public void setCompanyByCompanyId(CompanyEntity companyByCompanyId) {
+//        this.companyByCompanyId = companyByCompanyId;
+//    }
 
-    public void setCompanyByCompanyId(CompanyEntity companyByCompanyId) {
-        this.companyByCompanyId = companyByCompanyId;
-    }
 
-    @Basic
-    @Column(name = "company_id")
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
 
     @Basic
     @Column(name = "phone_no")
@@ -119,7 +113,7 @@ public class AccountEntity {
     }
 
     @OneToMany(mappedBy = "accountByAccountId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "asd")
+    @JsonBackReference(value = "account-job")
     public Collection<JobEntity> getJobsById() {
         return jobsById;
     }
@@ -129,13 +123,23 @@ public class AccountEntity {
     }
 
     @OneToMany(mappedBy = "accountByAccountId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "pppp")
+    @JsonBackReference(value = "account-application")
     public Collection<JobApplicationEntity> getJobApplicationsById() {
         return jobApplicationsById;
     }
 
     public void setJobApplicationsById(Collection<JobApplicationEntity> jobApplicationByIds) {
         this.jobApplicationsById = jobApplicationByIds;
+    }
+
+    @OneToMany(mappedBy = "accountById", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference(value = "account-company")
+    public Collection<CompanyEntity> getCompaniesById() {
+        return companiesById;
+    }
+
+    public void setCompaniesById(Collection<CompanyEntity> companiesById) {
+        this.companiesById = companiesById;
     }
 
     @Override
@@ -148,7 +152,6 @@ public class AccountEntity {
                 Objects.equals(password, that.password) &&
                 Objects.equals(role, that.role) &&
                 Objects.equals(confirmation, that.confirmation) &&
-                Objects.equals(companyId, that.companyId) &&
                 Objects.equals(phoneNo, that.phoneNo) &&
                 Objects.equals(cv, that.cv) &&
                 Objects.equals(fullname, that.fullname) &&
@@ -157,7 +160,7 @@ public class AccountEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, role, confirmation, companyId, phoneNo, cv, fullname, address);
+        return Objects.hash(id, email, password, role, confirmation, phoneNo, cv, fullname, address);
     }
 
     @Basic
