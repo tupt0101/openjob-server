@@ -4,6 +4,7 @@ package capstone.openjob.job.controller;
 //import capstone.openjob.account.service.IAccountService;
 import capstone.openjob.entity.JobEntity;
 import capstone.openjob.job.service.IJobService;
+import capstone.openjob.oauth2.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class JobController {
 
 //    @Autowired
 //    private IAccountService accountService;
+
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     HttpHeaders httpHeaders = new HttpHeaders();
 
@@ -96,7 +100,7 @@ public class JobController {
 //            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
 //        }
 
-
+        job.setCreateDate(userDetailsService.convertLocalDateTimeToDate(java.time.LocalDate.now()));
         return new ResponseEntity<>(jobService.createJob(job), HttpStatus.OK);
     }
 

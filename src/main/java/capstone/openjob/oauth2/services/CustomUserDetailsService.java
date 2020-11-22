@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 /**
  *
  * @author developer
@@ -39,4 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                         + "the name " + username + "was found in the database"));
     }
 
+    public Date convertLocalDateTimeToDate(LocalDate localDate) {
+        return  Date.valueOf(localDate);
+    }
 }
