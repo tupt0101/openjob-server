@@ -34,4 +34,10 @@ public class CompanyService implements ICompanyService {
             return ICompanyRepository.findById(id).get();
         } else return null;
     }
+
+    @Override
+    public CompanyEntity findCompanyByName(String name) {
+        if (ICompanyRepository.findCompanyEntityByNameEquals(name).isPresent()) {
+            return ICompanyRepository.findCompanyEntityByNameEquals(name).get();
+        } else return null;    }
 }

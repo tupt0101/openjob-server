@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/v1/job-application-management")
+@CrossOrigin(value = "http://localhost:4200")
 public class JobApplicationController {
 
     @Autowired
@@ -64,6 +65,13 @@ public class JobApplicationController {
     ResponseEntity<JobApplicationEntity> getJobApplicationById(@PathVariable("id") int id) {
 
         return new ResponseEntity<JobApplicationEntity>(jobApplicationService.getJobApplicationById(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/job-application/find-by-job-id/{jobId}", method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<List<JobApplicationEntity>> getJobApplicationsByJobId(@PathVariable("jobId") int jobId) {
+
+        return new ResponseEntity<List<JobApplicationEntity>>(jobApplicationService.getJobApplicationByJobId(jobId), HttpStatus.OK);
     }
 
 

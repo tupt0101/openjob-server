@@ -90,6 +90,13 @@ public class CompanyController {
 
         return new ResponseEntity<CompanyEntity>(companyService.findCompanyById(id), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/company-by-name/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<CompanyEntity> getCandidateByName(@PathVariable("name") String name) {
+
+        return new ResponseEntity<CompanyEntity>(companyService.findCompanyByName(name), HttpStatus.OK);
+    }
 }
 
 

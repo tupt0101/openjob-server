@@ -12,8 +12,8 @@ import java.util.Objects;
 public class CategoryEntity {
     private Integer id;
     private String name;
-    @ApiModelProperty(hidden = true)
-    private Collection<JobEntity> jobsById;
+//    @ApiModelProperty(hidden = true)
+//    private Collection<JobEntity> jobsById;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -36,15 +36,15 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "categoryByCategoryId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
-    public Collection<JobEntity> getJobsById() {
-        return jobsById;
-    }
-
-    public void setJobsById(Collection<JobEntity> jobByIds) {
-        this.jobsById = jobByIds;
-    }
+//    @OneToMany(mappedBy = "categoryByCategoryId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonBackReference
+//    public Collection<JobEntity> getJobsById() {
+//        return jobsById;
+//    }
+//
+//    public void setJobsById(Collection<JobEntity> jobByIds) {
+//        this.jobsById = jobByIds;
+//    }
 
     @Override
     public boolean equals(Object o) {

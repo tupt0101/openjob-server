@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -17,12 +18,17 @@ public class JobApplicationEntity {
     @ApiModelProperty(hidden = true)
     private AccountEntity accountByAccountId;
     private Date applyAt;
+    private String cv;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     public Integer getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setId(Integer id) {
@@ -75,6 +81,7 @@ public class JobApplicationEntity {
         return applyAt;
     }
 
+
     public void setApplyAt(Date applyAt) {
         this.applyAt = applyAt;
     }
@@ -84,14 +91,25 @@ public class JobApplicationEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobApplicationEntity that = (JobApplicationEntity) o;
-        return id == that.id &&
-                Objects.equals(jobByJobId, that.jobByJobId) &&
-                Objects.equals(accountByAccountId, that.accountByAccountId) &&
-                Objects.equals(applyAt, that.applyAt);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(jobId, that.jobId) &&
+                Objects.equals(accountId, that.accountId) &&
+                Objects.equals(applyAt, that.applyAt) &&
+                Objects.equals(cv, that.cv);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, jobByJobId, accountByAccountId, applyAt);
+        return Objects.hash(id, jobId, accountId, applyAt, cv);
+    }
+
+    @Basic
+    @Column(name = "cv")
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
     }
 }

@@ -44,6 +44,12 @@ public class JobService implements IJobService{
     }
 
     @Override
+    public List<JobEntity> getJobByAccountId(int id) {
+        if (IJobRepository.findJobEntitiesByAccountIdEquals(id).isPresent()) {
+            return IJobRepository.findJobEntitiesByAccountIdEquals(id).get();
+        } else return null;    }
+
+    @Override
     public List<JobEntity> getOpenJob() {
         if (IJobRepository.findAllByStatus("open").isPresent()) {
             return IJobRepository.findAllByStatus("open").get();

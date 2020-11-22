@@ -33,9 +33,6 @@ public class AccountController {
         } else if (accountEntity.getRole() == null || accountEntity.getRole().isEmpty()) {
             httpHeaders.set("error", "Role is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if (accountEntity.getCompanyId() == null) {
-            httpHeaders.set("error", "Company Id is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         } else if (accountEntity.getPhoneNo() == null) {
             httpHeaders.set("error", "Phone No is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
@@ -66,9 +63,6 @@ public class AccountController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         } else if (accountEntity.getRole() == null || accountEntity.getRole().isEmpty()) {
             httpHeaders.set("error", "Role is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if (accountEntity.getCompanyId() == null) {
-            httpHeaders.set("error", "Company Id is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         } else if (accountEntity.getPhoneNo() == null) {
             httpHeaders.set("error", "Phone No is empty");

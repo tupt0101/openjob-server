@@ -15,15 +15,19 @@ public class AccountEntity {
     private String password;
     private String role;
     private Boolean confirmation;
-    private Integer companyId;
-    @ApiModelProperty(hidden = true)
-    private CompanyEntity companyByCompanyId;
+//    private Integer companyId;
+//    @ApiModelProperty(hidden = true)
+//    private CompanyEntity companyByCompanyId;
     private String phoneNo;
     private String cv;
     @ApiModelProperty(hidden = true)
     private Collection<JobEntity> jobsById;
     @ApiModelProperty(hidden = true)
     private Collection<JobApplicationEntity> jobApplicationsById;
+    private String fullname;
+    private String address;
+    @ApiModelProperty(hidden = true)
+    private Collection<CompanyEntity> companiesById;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -76,25 +80,17 @@ public class AccountEntity {
         this.confirmation = confirmation;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id", insertable=false, updatable=false)
-    public CompanyEntity getCompanyByCompanyId() {
-        return companyByCompanyId;
-    }
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "company_id", referencedColumnName = "id", insertable=false, updatable=false)
+//    public CompanyEntity getCompanyByCompanyId() {
+//        return companyByCompanyId;
+//    }
+//
+//    public void setCompanyByCompanyId(CompanyEntity companyByCompanyId) {
+//        this.companyByCompanyId = companyByCompanyId;
+//    }
 
-    public void setCompanyByCompanyId(CompanyEntity companyByCompanyId) {
-        this.companyByCompanyId = companyByCompanyId;
-    }
 
-    @Basic
-    @Column(name = "company_id")
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
 
     @Basic
     @Column(name = "phone_no")
@@ -117,7 +113,7 @@ public class AccountEntity {
     }
 
     @OneToMany(mappedBy = "accountByAccountId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "asd")
+    @JsonBackReference(value = "account-job")
     public Collection<JobEntity> getJobsById() {
         return jobsById;
     }
@@ -127,7 +123,7 @@ public class AccountEntity {
     }
 
     @OneToMany(mappedBy = "accountByAccountId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference(value = "pppp")
+    @JsonBackReference(value = "account-application")
     public Collection<JobApplicationEntity> getJobApplicationsById() {
         return jobApplicationsById;
     }
@@ -136,23 +132,54 @@ public class AccountEntity {
         this.jobApplicationsById = jobApplicationByIds;
     }
 
+    @OneToMany(mappedBy = "accountById", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference(value = "account-company")
+    public Collection<CompanyEntity> getCompaniesById() {
+        return companiesById;
+    }
+
+    public void setCompaniesById(Collection<CompanyEntity> companiesById) {
+        this.companiesById = companiesById;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountEntity that = (AccountEntity) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(role, that.role) &&
                 Objects.equals(confirmation, that.confirmation) &&
-                Objects.equals(companyId, that.companyId) &&
                 Objects.equals(phoneNo, that.phoneNo) &&
-                Objects.equals(cv, that.cv);
+                Objects.equals(cv, that.cv) &&
+                Objects.equals(fullname, that.fullname) &&
+                Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, role, confirmation, companyId, phoneNo, cv);
+        return Objects.hash(id, email, password, role, confirmation, phoneNo, cv, fullname, address);
+    }
+
+    @Basic
+    @Column(name = "fullname")
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    @Basic
+    @Column(name = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

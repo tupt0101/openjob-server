@@ -9,4 +9,6 @@ public interface ICompanyService {
     CompanyEntity updateCompany(CompanyEntity candidateEntity);
     List<CompanyEntity> getAllCompany();
     CompanyEntity findCompanyById(int id);
+    CompanyEntity findCompanyByName(String name);
+
 }
