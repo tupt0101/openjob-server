@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/v1/candidate-management")
+@CrossOrigin(value = "http://localhost:4200")
 public class CompanyController {
 
     @Autowired
