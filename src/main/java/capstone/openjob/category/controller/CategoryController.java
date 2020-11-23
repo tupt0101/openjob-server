@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/v1/recruiter-management")
+@RequestMapping(path = "/v1/category-management")
 @CrossOrigin(value = "http://localhost:4200")
 public class CategoryController {
 
