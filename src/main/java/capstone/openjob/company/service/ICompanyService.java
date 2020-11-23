@@ -10,5 +10,7 @@ public interface ICompanyService {
     List<CompanyEntity> getAllCompany();
     CompanyEntity findCompanyById(int id);
     CompanyEntity findCompanyByName(String name);
+    List<CompanyEntity> findCompaniesByAccountId(int accountId);
+
 
 }

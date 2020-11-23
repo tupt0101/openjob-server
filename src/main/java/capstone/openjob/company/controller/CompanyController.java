@@ -97,6 +97,13 @@ public class CompanyController {
 
         return new ResponseEntity<CompanyEntity>(companyService.findCompanyByName(name), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/companies-by-account-id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<List<CompanyEntity>> getCandidateByName(@PathVariable("id") int accountId) {
+
+        return new ResponseEntity<List<CompanyEntity>>(companyService.findCompaniesByAccountId(accountId), HttpStatus.OK);
+    }
 }
 
 
