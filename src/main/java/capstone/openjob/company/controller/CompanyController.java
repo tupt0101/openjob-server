@@ -79,28 +79,28 @@ public class CompanyController {
 
     @RequestMapping(value = "/companies", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<List<CompanyEntity>> getAllCandidate() {
+    ResponseEntity<List<CompanyEntity>> getAllCompany() {
 
         return new ResponseEntity<List<CompanyEntity>>(companyService.getAllCompany(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/company/{id}", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<CompanyEntity> getCandidateById(@PathVariable("id") int id) {
+    ResponseEntity<CompanyEntity> getCompanyById(@PathVariable("id") int id) {
 
         return new ResponseEntity<CompanyEntity>(companyService.findCompanyById(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/company-by-name/{name}", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<CompanyEntity> getCandidateByName(@PathVariable("name") String name) {
+    ResponseEntity<CompanyEntity> getCompanyByName(@PathVariable("name") String name) {
 
         return new ResponseEntity<CompanyEntity>(companyService.findCompanyByName(name), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/companies-by-account-id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<List<CompanyEntity>> getCandidateByName(@PathVariable("id") int accountId) {
+    ResponseEntity<List<CompanyEntity>> getCompanyByName(@PathVariable("id") int accountId) {
 
         return new ResponseEntity<List<CompanyEntity>>(companyService.findCompaniesByAccountId(accountId), HttpStatus.OK);
     }
