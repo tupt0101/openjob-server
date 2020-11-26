@@ -18,6 +18,8 @@ public interface IJobRepository extends JpaRepository<JobEntity,Integer> {
     @Query(value = "select * from job j " +
             "where j.title like %:search% " +
             "or j.category like %:search% " +
+            "or j.skill like %:search% " +
+            "or j.location like %:search% " +
             "or j.company_id in (select c.id from company c " +
             "where c.name like %:search% or c.location like %:search%)",
             nativeQuery = true)
