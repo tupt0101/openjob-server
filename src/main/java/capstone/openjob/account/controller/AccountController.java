@@ -36,10 +36,12 @@ public class AccountController {
         } else if (accountEntity.getPhoneNo() == null) {
             httpHeaders.set("error", "Phone No is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if (accountEntity.getCv() == null) {
-            httpHeaders.set("error", "Cv is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if (accountService.findAccountByEmail(accountEntity.getEmail()) != null) {
+        }
+//        else if (accountEntity.getCv() == null) {
+//            httpHeaders.set("error", "Cv is empty");
+//            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
+//        }
+        else if (accountService.findAccountByEmail(accountEntity.getEmail()) != null) {
             httpHeaders.set("error", "This email is already registered");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         } else if (accountService.findAccountEntityById(accountEntity.getId()) != null) {
