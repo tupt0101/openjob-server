@@ -55,4 +55,9 @@ public class JobService implements IJobService{
             return IJobRepository.findAllByStatus("open").get();
         } else return null;
     }
+
+    @Override
+    public List<JobEntity> searchJob(String search) {
+        return IJobRepository.searchJob(search);
+    }
 }

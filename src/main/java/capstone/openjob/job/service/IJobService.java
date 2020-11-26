@@ -12,4 +12,5 @@ public interface IJobService {
     JobEntity getJobById(int id);
     List<JobEntity> getJobByAccountId(int id);
     List<JobEntity> getOpenJob();
+    List<JobEntity> searchJob(String search);
 }

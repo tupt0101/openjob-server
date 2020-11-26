@@ -202,4 +202,10 @@ public class JobController {
     ResponseEntity<List<JobEntity>> getJobByAccountId(@PathVariable("id") int id) {
         return new ResponseEntity<List<JobEntity>>(jobService.getJobByAccountId(id), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/job-by-criteria/{criteria}", method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<List<JobEntity>> getJobByCriteria(@PathVariable("criteria") String criteria) {
+        return new ResponseEntity<List<JobEntity>>(jobService.searchJob(criteria), HttpStatus.OK);
+    }
 }
