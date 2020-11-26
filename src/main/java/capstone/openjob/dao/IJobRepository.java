@@ -16,10 +16,10 @@ public interface IJobRepository extends JpaRepository<JobEntity,Integer> {
     Optional<List<JobEntity>> findJobEntitiesByAccountIdEquals(int id);
 
     @Query(value = "select * from job j " +
-            "where j.title like %:search % " +
-            "or j.category like %:search % " +
+            "where j.title like %:search% " +
+            "or j.category like %:search% " +
             "or j.company_id in (select c.id from company c" +
-            "where c.name like %:search % or c.location like %:search %)",
+            "where c.name like %:search% or c.location like %:search%)",
             nativeQuery = true)
     List<JobEntity> searchJob(@Param("search") String search);
 }
