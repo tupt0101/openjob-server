@@ -39,12 +39,6 @@ public class CompanyController {
         } else if(companyEntity.getPhoneNo() == null || companyEntity.getPhoneNo().isEmpty()) {
             httpHeaders.set("error", "Phone Number is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getDescription() == null || companyEntity.getDescription().isEmpty()) {
-            httpHeaders.set("error", "Description is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getAvatar() == null || companyEntity.getAvatar().isEmpty()) {
-            httpHeaders.set("error", "Avatar is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(companyService.createCompany(companyEntity), HttpStatus.OK);
     }
@@ -66,12 +60,6 @@ public class CompanyController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         } else if(companyEntity.getPhoneNo() == null || companyEntity.getPhoneNo().isEmpty()) {
             httpHeaders.set("error", "Phone Number is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getDescription() == null || companyEntity.getDescription().isEmpty()) {
-            httpHeaders.set("error", "Description is empty");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
-        } else if(companyEntity.getAvatar() == null || companyEntity.getAvatar().isEmpty()) {
-            httpHeaders.set("error", "Avatar is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(companyService.updateCompany(companyEntity), HttpStatus.OK);
