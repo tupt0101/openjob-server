@@ -100,7 +100,7 @@ public class JobController {
 //            return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
 //        }
 
-        job.setCreateDate(userDetailsService.convertLocalDateTimeToDate(java.time.LocalDate.now()));
+        job.setCreateDate(java.time.LocalDateTime.now());
         return new ResponseEntity<>(jobService.createJob(job), HttpStatus.OK);
     }
 

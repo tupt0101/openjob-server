@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -17,7 +18,7 @@ public class JobApplicationEntity {
     private Integer accountId;
     @ApiModelProperty(hidden = true)
     private AccountEntity accountByAccountId;
-    private Date applyAt;
+    private LocalDateTime applyAt;
     private String cv;
 
     @Id
@@ -77,12 +78,12 @@ public class JobApplicationEntity {
 
     @Basic
     @Column(name = "apply_at")
-    public Date getApplyAt() {
+    public LocalDateTime getApplyAt() {
         return applyAt;
     }
 
 
-    public void setApplyAt(Date applyAt) {
+    public void setApplyAt(LocalDateTime applyAt) {
         this.applyAt = applyAt;
     }
 

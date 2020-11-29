@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -14,8 +15,8 @@ public class JobEntity {
     private Integer id;
     private String title;
     private String description;
-    private Date applyTo;
-    private Date createDate;
+    private LocalDateTime applyTo;
+    private LocalDateTime createDate;
     private Integer companyId;
     @ApiModelProperty(hidden = true)
     private CompanyEntity companyByCompanyId;
@@ -70,21 +71,21 @@ public class JobEntity {
 
     @Basic
     @Column(name = "apply_to")
-    public Date getApplyTo() {
+    public LocalDateTime getApplyTo() {
         return applyTo;
     }
 
-    public void setApplyTo(Date applyTo) {
+    public void setApplyTo(LocalDateTime applyTo) {
         this.applyTo = applyTo;
     }
 
     @Basic
     @Column(name = "create_date")
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
