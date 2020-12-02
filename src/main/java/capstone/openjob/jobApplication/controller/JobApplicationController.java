@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,7 @@ public class JobApplicationController {
             httpHeaders.set("error", "Apply at date is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
+        jobApplicationEntity.setApplyAt(LocalDateTime.now());
         return new ResponseEntity<>(jobApplicationService.createJobApplication(jobApplicationEntity), HttpStatus.OK);
     }
 
