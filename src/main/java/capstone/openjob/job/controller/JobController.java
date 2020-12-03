@@ -37,7 +37,7 @@ public class JobController {
     ResponseEntity<List<JobEntity>> getAllJob() {
         List<JobEntity> jobList = jobService.getAllJob();
         if (!CollectionUtils.isEmpty(jobList)) {
-            jobList.sort(Comparator.comparingInt(JobEntity::getId));
+            jobList.sort(Comparator.comparingInt(JobEntity::getId).reversed());
         }
         return new ResponseEntity<List<JobEntity>>(jobList, HttpStatus.OK);
 
@@ -203,7 +203,7 @@ public class JobController {
     ResponseEntity<List<JobEntity>> getAllOpenJob() {
         List<JobEntity> jobList = jobService.getOpenJob();
         if (!CollectionUtils.isEmpty(jobList)) {
-            jobList.sort(Comparator.comparingInt(JobEntity::getId));
+            jobList.sort(Comparator.comparingInt(JobEntity::getId).reversed());
         }
         return new ResponseEntity<List<JobEntity>>(jobList, HttpStatus.OK);
     }
