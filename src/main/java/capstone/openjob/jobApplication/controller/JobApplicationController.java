@@ -40,10 +40,12 @@ public class JobApplicationController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
         List<JobApplicationEntity> jobApplicationEntities = jobApplicationService.getJobApplicationByJobId(jobApplicationEntity.getJobId());
-        for (int i = 0; i < jobApplicationEntities.size(); i++) {
-            JobApplicationEntity tempJobApp = jobApplicationEntities.get(i);
-            if (tempJobApp.getJobId() == jobApplicationEntity.getJobId() && tempJobApp.getAccountId() == jobApplicationEntity.getAccountId()) {
-                jobApplicationEntity.setId(tempJobApp.getId());
+        if (jobApplicationEntities != null) {
+            for (int i = 0; i < jobApplicationEntities.size(); i++) {
+                JobApplicationEntity tempJobApp = jobApplicationEntities.get(i);
+                if (tempJobApp.getJobId() == jobApplicationEntity.getJobId() && tempJobApp.getAccountId() == jobApplicationEntity.getAccountId()) {
+                    jobApplicationEntity.setId(tempJobApp.getId());
+                }
             }
         }
         jobApplicationEntity.setApplyAt(LocalDateTime.now());
