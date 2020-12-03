@@ -2,6 +2,7 @@ package capstone.openjob.job.controller;
 
 
 //import capstone.openjob.account.service.IAccountService;
+
 import capstone.openjob.entity.JobEntity;
 import capstone.openjob.job.service.IJobService;
 import capstone.openjob.oauth2.services.CustomUserDetailsService;
@@ -10,8 +11,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -31,8 +34,13 @@ public class JobController {
 
     @RequestMapping(value = "/jobs", method = RequestMethod.GET)
     @ResponseBody
-    List<JobEntity> getAllJob() {
-        return jobService.getAllJob();
+    ResponseEntity<List<JobEntity>> getAllJob() {
+        List<JobEntity> jobList = jobService.getAllJob();
+        if (!CollectionUtils.isEmpty(jobList)) {
+            jobList.sort(Comparator.comparingInt(JobEntity::getId));
+        }
+        return new ResponseEntity<List<JobEntity>>(jobList, HttpStatus.OK);
+
     }
 
     @PostMapping(value = "/job", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -136,11 +144,11 @@ public class JobController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
 
-        if (job.getSalaryFrom() < 0 ) {
+        if (job.getSalaryFrom() < 0) {
             httpHeaders.set("error", "Invalid salary is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
-        if (job.getSalaryTo() == null ) {
+        if (job.getSalaryTo() == null) {
             httpHeaders.set("error", "Invalid salary to is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
@@ -164,7 +172,7 @@ public class JobController {
             httpHeaders.set("error", "Location is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
-        if (job.getAccountId() == null ) {
+        if (job.getAccountId() == null) {
             httpHeaders.set("error", "Account Id is empty");
             return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
         }
@@ -184,7 +192,6 @@ public class JobController {
     }
 
 
-
     @RequestMapping(value = "/job/{id}", method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<JobEntity> getJobById(@PathVariable("id") int id) {
@@ -194,7 +201,11 @@ public class JobController {
     @RequestMapping(value = "/open-jobs", method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<List<JobEntity>> getAllOpenJob() {
-        return new ResponseEntity<List<JobEntity>>(jobService.getOpenJob(), HttpStatus.OK);
+        List<JobEntity> jobList = jobService.getOpenJob();
+        if (!CollectionUtils.isEmpty(jobList)) {
+            jobList.sort(Comparator.comparingInt(JobEntity::getId));
+        }
+        return new ResponseEntity<List<JobEntity>>(jobList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/job-by-account-id/{id}", method = RequestMethod.GET)
