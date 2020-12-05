@@ -31,7 +31,7 @@ public class JobService implements IJobService{
 
     @Override
     public JobEntity closeJob(int id) {
-        JobEntity job = IJobRepository.getOne(id);
+        JobEntity job = getJobById(id);
         job.setStatus(JobStatus.CLOSED.getValue());
         return IJobRepository.save(job);
     }
