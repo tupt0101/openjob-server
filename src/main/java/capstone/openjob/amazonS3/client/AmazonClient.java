@@ -6,9 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +15,9 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class AmazonClient {
@@ -32,6 +32,7 @@ public class AmazonClient {
     private String accessKey;
     @Value("${amazonProperties.secretKey}")
     private String secretKey;
+
     @PostConstruct
     private void initializeAmazon() {
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
@@ -50,7 +51,7 @@ public class AmazonClient {
         try {
             File file = convertMultiPartToFile(multipartFile);
             String fileName = generateFileName(multipartFile);
-            fileUrl = endpointUrl  + "/" + fileName;
+            fileUrl = endpointUrl + "/" + fileName;
             uploadFileTos3bucket(fileName, file);
             file.delete();
         } catch (Exception e) {
@@ -77,5 +78,17 @@ public class AmazonClient {
 
     private String generateFileName(MultipartFile multiPart) {
         return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+    }
+
+    public List<String> getFileURL() {
+        ListObjectsRequest req = new ListObjectsRequest().withBucketName(bucketName).withPrefix("cv-source/");
+        ObjectListing objectListing = s3client.listObjects(req);
+        List<String> objectURLs = new ArrayList<>();
+        for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
+            objectURLs.add(endpointUrl +"/" +os.getKey());
+        }
+
+        objectURLs.remove(0);
+        return objectURLs;
     }
 }

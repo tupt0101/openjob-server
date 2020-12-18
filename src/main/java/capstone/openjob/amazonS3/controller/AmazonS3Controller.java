@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/s3-management/")
 @CrossOrigin(value = "http://localhost:4200")
@@ -37,5 +39,10 @@ public class AmazonS3Controller {
     @DeleteMapping("/deleteFile")
     public String deleteFile(@RequestPart(value = "url") String fileUrl) {
         return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
+    }
+
+    @GetMapping("/getAllFiles")
+    public List<String> getAllFile() {
+        return this.amazonClient.getFileURL();
     }
 }
