@@ -15,7 +15,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://open-job-fe.s3-website-ap-southeast-1.amazonaws.com", "http://localhost:4200")
+                        .allowedOrigins("http://open-job-fe.s3-website-ap-southeast-1.amazonaws.com","http://openjob-fe.s3-website-ap-southeast-1.amazonaws.com", "http://localhost:4200")
                         .allowedMethods("GET", "POST", "OPTIONS", "PUT")
                 .allowCredentials(true);
             }
