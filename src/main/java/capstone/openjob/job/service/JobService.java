@@ -4,6 +4,7 @@ import capstone.openjob.dao.IJobRepository;
 import capstone.openjob.entity.JobEntity;
 import capstone.openjob.job.constant.JobStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class JobService implements IJobService{
     }
 
     @Override
-    public List<JobEntity> searchJob(String search) {
-        return IJobRepository.searchJob(search);
+    public List<JobEntity> searchJob(String search, Pageable pageable) {
+        return IJobRepository.searchJob(search, pageable);
     }
 }

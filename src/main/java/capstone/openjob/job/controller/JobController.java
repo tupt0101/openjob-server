@@ -3,10 +3,12 @@ package capstone.openjob.job.controller;
 
 //import capstone.openjob.account.service.IAccountService;
 
+import capstone.openjob.common.CommonUtils;
 import capstone.openjob.entity.JobEntity;
 import capstone.openjob.job.service.IJobService;
 import capstone.openjob.oauth2.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -214,9 +216,13 @@ public class JobController {
         return new ResponseEntity<List<JobEntity>>(jobService.getJobByAccountId(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/job-by-criteria/{criteria}", method = RequestMethod.GET)
+    @RequestMapping(value = "/job-by-criteria", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<List<JobEntity>> getJobByCriteria(@PathVariable("criteria") String criteria) {
-        return new ResponseEntity<List<JobEntity>>(jobService.searchJob(criteria), HttpStatus.OK);
+    ResponseEntity<List<JobEntity>> getJobByCriteria(@RequestParam("criteria") String criteria,
+                                                     @RequestParam(value = "numOfElement") Integer numOfElement,
+                                                     @RequestParam(value = "page") Integer page,
+                                                     @RequestParam(value = "sort") String sort) {
+        Pageable pageable = CommonUtils.configPageable(numOfElement, page, sort);
+        return new ResponseEntity<List<JobEntity>>(jobService.searchJob(criteria, pageable), HttpStatus.OK);
     }
 }

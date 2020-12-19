@@ -1,6 +1,7 @@
 package capstone.openjob.job.service;
 
 import capstone.openjob.entity.JobEntity;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface IJobService {
     JobEntity getJobById(int id);
     List<JobEntity> getJobByAccountId(int id);
     List<JobEntity> getOpenJob();
-    List<JobEntity> searchJob(String search);
+    List<JobEntity> searchJob(String search, Pageable pageable);
 }

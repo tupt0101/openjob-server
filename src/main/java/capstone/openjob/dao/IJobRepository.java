@@ -1,6 +1,7 @@
 package capstone.openjob.dao;
 
 import capstone.openjob.entity.JobEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +24,5 @@ public interface IJobRepository extends JpaRepository<JobEntity,Integer> {
             "or j.company_id in (select c.id from company c " +
             "where c.name like %:search% or c.location like %:search%)",
             nativeQuery = true)
-    List<JobEntity> searchJob(@Param("search") String search);
+    List<JobEntity> searchJob(@Param("search") String search, Pageable pageable);
 }
