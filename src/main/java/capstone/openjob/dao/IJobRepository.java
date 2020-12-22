@@ -22,7 +22,8 @@ public interface IJobRepository extends JpaRepository<JobEntity,Integer> {
             "or j.skill like %:search% " +
             "or j.location like %:search% " +
             "or j.company_id in (select c.id from company c " +
-            "and j.status <> 'Closed' where c.name like %:search% or c.location like %:search%)",
+            "where c.name like %:search% or c.location like %:search%) " +
+            "and j.status <> 'Closed' ",
             nativeQuery = true)
     List<JobEntity> searchJob(@Param("search") String search, Pageable pageable);
 }
